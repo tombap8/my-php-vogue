@@ -25,8 +25,8 @@ export default function validateFn(changeMenu) {
     [id!=email2] !=은 같지않다(제이쿼리용문법)
 
 **********************************************/
-// 대상요소 변수할당 ///
-const tgInput = `form.logF input[type=text][id!=email2],
+  // 대상요소 변수할당 ///
+  const tgInput = `form.logF input[type=text][id!=email2],
 form.logF input[type=password]`;
 
   $(tgInput).blur(function () {
@@ -191,9 +191,7 @@ form.logF input[type=password]`;
     // 2-1."선택해주세요"일 경우
     if (cv == "init") {
       // 1. 메시지 출력
-      eml1.siblings(".msg")
-      .text("이메일 옵션선택 필수!")
-      .removeClass("on");
+      eml1.siblings(".msg").text("이메일 옵션선택 필수!").removeClass("on");
 
       // 2. 직접입력창 숨기기
       eml2.fadeOut(300);
@@ -226,7 +224,6 @@ form.logF input[type=password]`;
 
       // 4. 이메일 유효성 검사함수 호출
       resEml(comp);
-
     } ////// else : 기타 이메일주소 ////
   }); /////////////// change ////////////////
 
@@ -245,30 +242,30 @@ form.logF input[type=password]`;
     -> 모든 이벤트함수와 연결하는 제이쿼리 메서드는?
     on(이벤트명,함수)
  ***********************************************/
-$("#email1, #email2").on("keyup",function(){
-  // 1. 현재 이벤트 발생 대상 아이디 읽어오기
-  let cid = $(this).attr("id");
-  // console.log("입력창id:",cid);
+  $("#email1, #email2").on("keyup", function () {
+    // 1. 현재 이벤트 발생 대상 아이디 읽어오기
+    let cid = $(this).attr("id");
+    // console.log("입력창id:",cid);
 
-  // 2. 이메일 뒷주소 셋팅하기 (선택!)
-  let backEml = 
-  cid == "email2" 
-  ? eml2.val()
-  : seleml.val() != "free" 
-  ? seleml.val()
-  : eml2.val();
-  // 현재입력 아이디가 "email2"이면 직접입력창을 읽고  
-  // 아니면 선택박스값이 "free"가 아닌 경우 선택박스값 읽고
-  // 아니면 직접입력창값을 뒷주소로 설정함!
+    // 2. 이메일 뒷주소 셋팅하기 (선택!)
+    let backEml =
+      cid == "email2"
+        ? eml2.val()
+        : seleml.val() != "free"
+        ? seleml.val()
+        : eml2.val();
+    // 현재입력 아이디가 "email2"이면 직접입력창을 읽고
+    // 아니면 선택박스값이 "free"가 아닌 경우 선택박스값 읽고
+    // 아니면 직접입력창값을 뒷주소로 설정함!
 
-  // 이메일 전체주소 만들기
-  let comp = eml1.val() + "@" + backEml;
+    // 이메일 전체주소 만들기
+    let comp = eml1.val() + "@" + backEml;
 
-  // 이메일 유효성 검사함수 호출하기
-  resEml(comp);
+    // 이메일 유효성 검사함수 호출하기
+    resEml(comp);
 
-  // console.log($(this).val());
-}); //////////////////  keyup  //////////////////
+    // console.log($(this).val());
+  }); //////////////////  keyup  //////////////////
 
   /****************************************** 
     함수명 : resEml (result Email)
@@ -276,7 +273,7 @@ $("#email1, #email2").on("keyup",function(){
   ******************************************/
   const resEml = (comp) => {
     // comp - 이메일주소
-    console.log('이메일주소:',comp);
+    console.log("이메일주소:", comp);
     // console.log('이메일검사결과:',vReg(comp,'eml'));
 
     // 이메일 정규식 검사에 따른 메시지 보이기
@@ -289,8 +286,8 @@ $("#email1, #email2").on("keyup",function(){
         .text("맞지않는 이메일 형식입니다!")
         .removeClass("on");
 
-        // [불통과 pass변수 업데이트!]
-        pass = false;
+      // [불통과 pass변수 업데이트!]
+      pass = false;
     } //////// else : 불통과시 ////////
   }; ///////////// resEml /////////////////
 
@@ -316,8 +313,7 @@ $("#email1, #email2").on("keyup",function(){
       }); /// css ///
     }); ///// click /////
 
-
-    /********************************************* 
+  /********************************************* 
     가입하기(submit) 버튼 클릭시 처리하기 
     __________________________________
 
@@ -337,32 +333,29 @@ $("#email1, #email2").on("keyup",function(){
     ->>> trigger(이벤트명)
 
   *********************************************/
-// 통과여부변수(true/false값)
-let pass;
+  // 통과여부변수(true/false값)
+  let pass;
 
- $("#btnj").click((e)=>{
+  $("#btnj").click((e) => {
+    console.log("가입해~!");
 
-  console.log("가입해~!");
+    // 1. 기본이동(서브밋) 막기
+    e.preventDefault();
 
-  // 1. 기본이동(서브밋) 막기
-  e.preventDefault();
+    // 2. pass통과여부 변수에 true할당하기
+    pass = true;
 
-  // 2. pass통과여부 변수에 true할당하기
-  pass = true;
+    // 3. 입력창 blur이벤트 강제발생하기
+    $(tgInput).trigger("blur");
 
-  // 3. 입력창 blur이벤트 강제발생하기
-  $(tgInput).trigger("blur");
+    console.log("통과여부:", pass);
 
-  console.log("통과여부:",pass);
+    // 4. 검사결과에 따라 메시지 보이기
+    if (pass) {
+      // 메서드로 서브밋하기 -> 동기적 처리(그 페이지로 이동함)
+      // $(".logF").submit();
 
-  // 4. 검사결과에 따라 메시지 보이기
-  if (pass) {
-    
-
-    // 메서드로 서브밋하기 -> 동기적 처리(그 페이지로 이동함)
-    // $(".logF").submit();
-
-     /* 
+      /* 
       [ Ajax를 이용한 POST방식으로 DB에
       데이터 입력하기 ]
 
@@ -386,53 +379,42 @@ let pass;
         // 2.전송할데이터 : 객체로 보냄
         {
           // 1.아이디
-          "mid":$("#mid").val(),
+          mid: $("#mid").val(),
           // 2.비번
-          "mpw":$("#mpw").val(),
+          mpw: $("#mpw").val(),
           // 3.이름
-          "mnm":$("#mnm").val(),
+          mnm: $("#mnm").val(),
           // 4.성별 : 라디오태그에 value속성필수!
-          "gen":$(":radio[name=gen]:checked").val(),
+          gen: $(":radio[name=gen]:checked").val(),
           // 5-1.이메일 앞주소
-          "email1":$("#email1").val(),
+          email1: $("#email1").val(),
           // 5-2.이메일 뒷주소
-          "seleml":$("#seleml").val(),
+          seleml: $("#seleml").val(),
           // 5-3.직접입력 이메일 뒷주소
-          "email2":$("#email2").val()
+          email2: $("#email2").val(),
         },
         // 3.전송후콜백함수
-        function(res){// res - 백엔드 ins.php의 리턴값
-          console.log("서버리턴값:",res);
+        function (res) {
+          // res - 백엔드 ins.php의 리턴값
+          console.log("서버리턴값:", res);
           // 1.서버리턴값이 "ok"이면 성공
-          if(res == "ok"){
+          if (res == "ok") {
             alert("회원가입을 축하드립니다! 짝짝짝!");
           }
           // 2.서버리턴값이 "ok"가 아니면 실패
-          else{
-            alert("회원가입에 실패하였습니다!"+res);
+          else {
+            alert("회원가입에 실패하였습니다!" + res);
           }
-
         } ///// 콜백함수 /////
-        ); //////////// 제이쿼리 post메서드 ///////
+      ); //////////// 제이쿼리 post메서드 ///////
 
-
-
-    
-    // changeMenu("login");
-
-  } //////// if : 통과시 ///////////
-  else {
-    ///// 불통과시 //////
-    alert("입력을 수정하세요~!");
-  } //////// else : 불통과시 //////
-
-
- }); //////////// click ///////////////////
-
-
-
-
-
+      // changeMenu("login");
+    } //////// if : 통과시 ///////////
+    else {
+      ///// 불통과시 //////
+      alert("입력을 수정하세요~!");
+    } //////// else : 불통과시 //////
+  }); //////////// click ///////////////////
 } ////////////////// validateFn /////////////////
 
 /*//////////////////////////////////////////////////////
