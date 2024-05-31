@@ -400,6 +400,8 @@ form.logF input[type=password]`;
           // 1.서버리턴값이 "ok"이면 성공
           if (res == "ok") {
             alert("회원가입을 축하드립니다! 짝짝짝!");
+            // 리액트 메뉴변경 상태변수 업데이트로 페이지이동
+            changeMenu("login");
           }
           // 2.서버리턴값이 "ok"가 아니면 실패
           else {
@@ -408,7 +410,6 @@ form.logF input[type=password]`;
         } ///// 콜백함수 /////
       ); //////////// 제이쿼리 post메서드 ///////
 
-      // changeMenu("login");
     } //////// if : 통과시 ///////////
     else {
       ///// 불통과시 //////
