@@ -140,7 +140,22 @@ form.logF input[type=password]`;
             // 처리하기 위해 비동기옵션을 false로
             // 처리해야한다!
             // 6.성공처리(success)
-            success: function(){},
+            success: function(res){
+              // res - 리턴된 결과값
+              if(res == "ok"){ // 아이디중복 통과시
+                $("#mid").siblings(".msg")
+                .text("멋진아이디네요!")
+                .addClass("on");
+                // 클래스 on을 넣으면 녹색글자임!
+              } /// if ///
+              // 아이디 중복일 경우
+              else{
+                $("#mid").siblings(".msg")
+                .text("이미 사용중인 아이디입니다")
+                .removeClass("on");
+              } /// else ///
+
+            },
             // 7.실패처리(error)
             error: function(){},
   
@@ -150,8 +165,6 @@ form.logF input[type=password]`;
 
 
 
-        $(this).siblings(".msg").text("멋진아이디네요!").addClass("on");
-        // 클래스 on을 넣으면 녹색글자임!
       } //////// else ////////
     } ///////////// else if //////////
     /**************************************** 
