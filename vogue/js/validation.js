@@ -125,46 +125,51 @@ form.logF input[type=password]`;
           -> 보내는 값은 하나(객체데이터)
           -> 객체안에 7가지 유형의 데이터를 보냄!
       */
-          $.ajax({
-            // 1.전송할페이지(url)
-            url:"./process/chkID.php",
-            // 2.전송방식(type)
-            type:"post",
-            // 3.보낼데이터(data)
-            data:{"mid":$('#mid').val()},
-            // 4.전송할데이터타입(dataType)
-            dataType:"html",
-            // 5.비동기옵션(async)
-            async:false,
-            // -> pass변수 업데이트를 동기적으로
-            // 처리하기 위해 비동기옵션을 false로
-            // 처리해야한다!
-            // 6.성공처리(success)
-            success: function(res){
-              // res - 리턴된 결과값
-              if(res == "ok"){ // 아이디중복 통과시
-                $("#mid").siblings(".msg")
+        $.ajax({
+          // 1.전송할페이지(url)
+          url: "./process/chkID.php",
+          // 2.전송방식(type)
+          type: "post",
+          // 3.보낼데이터(data)
+          data: { mid: $("#mid").val() },
+          // 4.전송할데이터타입(dataType)
+          dataType: "html",
+          // 5.비동기옵션(async)
+          async: false,
+          // -> pass변수 업데이트를 동기적으로
+          // 처리하기 위해 비동기옵션을 false로
+          // 처리해야한다!
+          // 6.성공처리(success)
+          success: function (res) {
+            // res - 리턴된 결과값
+            if (res == "ok") {
+              // 아이디중복 통과시
+              $("#mid")
+                .siblings(".msg")
                 .text("멋진아이디네요!")
                 .addClass("on");
-                // 클래스 on을 넣으면 녹색글자임!
-              } /// if ///
-              // 아이디 중복일 경우
-              else{
-                $("#mid").siblings(".msg")
+              // 클래스 on을 넣으면 녹색글자임!
+            } /// if ///
+            // 아이디 중복일 경우
+            else {
+              $("#mid")
+                .siblings(".msg")
                 .text("이미 사용중인 아이디입니다")
                 .removeClass("on");
-              } /// else ///
 
-            },
-            // 7.실패처리(error)
-            error: function(){},
-  
-        })
-
-
-
-
-
+              // [불통과 pass변수 업데이트!]
+              pass = false;
+              console.log("중복ID pass:", pass);
+            } /// else ///
+          },
+          // 7.실패처리(error)
+          // xhr - XMLHttpRequest객체
+          // status - 실패상태코드
+          // error - 에러결과값
+          error: function (xhr,status,error) {
+            alert("연결처리실패:"+error);
+          } //// error ////
+        });
       } //////// else ////////
     } ///////////// else if //////////
     /**************************************** 
@@ -470,7 +475,6 @@ form.logF input[type=password]`;
           }
         } ///// 콜백함수 /////
       ); //////////// 제이쿼리 post메서드 ///////
-
     } //////// if : 통과시 ///////////
     else {
       ///// 불통과시 //////
