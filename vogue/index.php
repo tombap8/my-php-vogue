@@ -125,6 +125,7 @@
       data-plugins="transform-es2015-modules-umd"
       type="text/babel"
     ></script>
+
   </head>
   <body>
     <div id="root"></div>
