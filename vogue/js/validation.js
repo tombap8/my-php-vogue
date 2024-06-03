@@ -127,15 +127,18 @@ form.logF input[type=password]`;
       */
           $.ajax({
             // 1.전송할페이지(url)
-            url:"",
+            url:"./process/chkID.php",
             // 2.전송방식(type)
-            type:"",
+            type:"post",
             // 3.보낼데이터(data)
-            data:{},
+            data:{"mid":$('#mid').val()},
             // 4.전송할데이터타입(dataType)
-            dataType:"",
+            dataType:"html",
             // 5.비동기옵션(async)
             async:false,
+            // -> pass변수 업데이트를 동기적으로
+            // 처리하기 위해 비동기옵션을 false로
+            // 처리해야한다!
             // 6.성공처리(success)
             success: function(){},
             // 7.실패처리(error)
