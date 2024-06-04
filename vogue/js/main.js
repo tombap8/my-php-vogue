@@ -45,6 +45,13 @@ function Layout() {
     window.scrollTo(0, 0);
   }, [menu]);
 
+  // 로그인시 필요한 사용자 확인 박스 만들기 ////
+  // 처음 화면 랜더링 후 한번만 실행코드 구역에 구현
+  React.useLayoutEffect(()=>{
+    
+  },[]);
+
+
   // 코드 리턴구역 ////////////
   return (
     <React.Fragment>
