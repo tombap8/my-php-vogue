@@ -69,7 +69,7 @@ function Layout() {
   React.useLayoutEffect(() => {
     // 로그인 처리함수 호출!
     loginSet(login_msg, login_auth);
-  });
+  },[]); // 처음 한번만 로그인 처리함수 호출!
 
   // 코드 리턴구역 ////////////
   return (

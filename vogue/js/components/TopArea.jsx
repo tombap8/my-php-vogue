@@ -50,7 +50,12 @@ export default function TopArea({ changeMenu }) {
             </a>
 
             <a href="#" className="fi fi-laptop" title="로그인"
-            onClick={()=>chgMenuFn("login")}>
+            onClick={(e)=>
+              // 로그인일때만 이동처리(로그아웃은 작동안함!)
+            $(e.currentTarget)
+            .find("span")
+            .text()=="로그인"
+            ?chgMenuFn("login"):''}>
               <span className="ir">로그인</span>
             </a>
             <a href="#" className="fi fi-user-secret" title="회원가입"
