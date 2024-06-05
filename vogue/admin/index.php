@@ -186,7 +186,7 @@
     else{        
         echo "<script>
             alert('먼저 로그인을 해야합니다!');
-            location.replace('../login.php');//로그인페이지로!
+            location.href = '../index.php';
         </script>";
     } ////////// else문 ///////////////////////
     
